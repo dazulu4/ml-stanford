@@ -21,13 +21,22 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+% Add ones to the X data matrix
+X = [ones(m, 1) X];
 
+% Calculate activations functions of 25 units (for Theta1) in layer 2
+z2 = X * Theta1';
+a2 = sigmoid(z2);
 
+% Add ones to the a2 (activation units layer 2) data matrix
+a2 = [ones(m, 1) a2];
 
+% Calculate activations functions of 10 units (for Theta2) in layer 3
+z3 = a2 * Theta2';
+a3 = sigmoid(z3);
 
-
-
-
+% Predictions
+[v, p] = max(a3, [], 2);  % v: value; p: index 1:10 (10 is zero)
 
 % =========================================================================
 
