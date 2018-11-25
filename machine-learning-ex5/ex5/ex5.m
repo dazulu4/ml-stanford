@@ -15,6 +15,9 @@
 %  or any other files other than those mentioned above.
 %
 
+%% Supressing Warnings Division By Zero
+warning('off', 'Octave:divide-by-zero');
+
 %% Initialization
 clear ; close all; clc
 
