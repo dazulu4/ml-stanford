@@ -23,11 +23,31 @@ sigma = 0.3;
 %        mean(double(predictions ~= yval))
 %
 
+%{
+x1 = [1 2 1]; x2 = [0 4 -1];
+params = [0.01 0.03 0.1 0.3 1 3 10 30];
+progress = 0; total = size(params)(2)^2;
+previous_error = 1000;
 
+for i=1:8
+	for j=1:8
+		C_val = params(i); sigma_val = params(j); progress = progress + 1;
+		model = svmTrain(X, y, C_val, @(x1, x2) gaussianKernel(x1, x2, sigma_val));
+		predictions = svmPredict(model, Xval);
+		current_error = mean(double(predictions ~= yval));
+		fprintf('Progress = %.0f | C_val = %f | sigma_val = %f | error_val = %f\n', (progress*100/total), C_val, sigma_val, current_error);
+		if current_error < previous_error
+			C = C_val;
+			sigma = sigma_val;
+			previous_error = current_error;
+		%end
+	end
+end
+%}
 
-
-
-
+% Correct values for C and sigma after cross validation training
+C = 1;
+sigma = 0.1;
 
 % =========================================================================
 
